@@ -7,12 +7,7 @@ import s from './Render.module.css';
 
 class Render extends Component {
   state = {
-    contacts: [
-      // { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      // { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      // { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      // { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
 
@@ -48,8 +43,10 @@ componentDidMount() {
           };
         });
   };
-  onChangeFilter = filter => {
-    this.setState({ filter });
+  onChangeFilter = value => {
+    this.setState({
+      filter:value
+    });
   };
 
   removeContact = contactId => {
@@ -73,7 +70,7 @@ componentDidMount() {
         <div>
           <h2 className={s.titleContacts}>Contacts</h2>
           {contacts.length > 1 ? (
-            <Filter value={filter} onChangeFilter={this.onChangeFilter} />
+            <Filter value={filter}  onChangeFilter={this.onChangeFilter} />
           ) : null}
           <ContactsList
             contacts={filteredContacts}
@@ -86,3 +83,78 @@ componentDidMount() {
 }
 
 export default Render;
+// import React, { Component } from 'react';
+// import  ContactForm from '../ContactForm';
+// import  ContactsList from '../ContactList';
+// import Filter from '../Filter';
+// import s from './Render.module.css';
+
+// export default class Render extends Component {
+//   state = {
+//     contacts: [],
+//     filter: '',
+//   };
+//   componentDidMount() {
+//     const value = JSON.parse(localStorage.getItem('contacts'));
+//     if (value === null) {
+//       return;
+//     }
+//     this.setState({ contacts: value.contacts });
+//   }
+//   componentDidUpdate(prevProps, prevState) {
+//     const { contacts } = this.state;
+//     if (prevState.contacts !== contacts) {
+//       localStorage.setItem(
+//         'contacts',
+//         JSON.stringify({
+//           contacts: contacts,
+//         }),
+//       );
+//     }
+//   }
+//   deleteContact = contactId => {
+//     this.setState(({ contacts }) => ({
+//       contacts: contacts.filter(contact => contact.id !== contactId),
+//     }));
+//   };
+//   addContact = newContact => {
+//     const findinList = this.state.contacts.find(
+//       ({ name }) =>
+//         newContact.name.toLocaleLowerCase() === name.toLocaleLowerCase(),
+//     );
+//     if (findinList) {
+//       alert(`${findinList.name} is alredy in contact`);
+//       return;
+//     }
+//     this.setState(({ contacts }) => ({
+//       contacts: [newContact, ...contacts],
+//     }));
+//   };
+//   onChengeValue = e => {
+//     const { name, value } = e.currentTarget;
+//     this.setState({ [name]: value });
+//   };
+//   filtredLIst = () => {
+//     const { contacts, filter } = this.state;
+//     const normalizeFilter = filter.toLocaleLowerCase();
+//     return contacts.filter(({ name }) => {
+//       return name.toLocaleLowerCase().includes(normalizeFilter);
+//     });
+//   };
+//   render() {
+//     const filtredLIst = this.filtredLIst();
+//     const { filter } = this.state;
+//     return (
+//       <div className={s.wraper}>
+//         <h1 className={s.title}>Phonebook</h1>
+//         <ContactForm onSubmit={this.addContact} />
+//         <h2 className={s.subtitle}>Contacts</h2>
+//         <Filter value={filter} onChengeValue={this.onChengeValue} />
+//         <ContactsList
+//           contacts={filtredLIst}
+//           deleteContact={this.deleteContact}
+//         />
+//       </div>
+//     );
+//   }
+// }

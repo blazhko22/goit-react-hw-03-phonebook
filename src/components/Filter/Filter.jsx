@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import s from './Filter.module.css';
 
 function Filter({ value, onChangeFilter }) {
@@ -9,10 +10,15 @@ function Filter({ value, onChangeFilter }) {
         name="filter"
         type="text"
         value={value}
-        onChange={event => onChangeFilter(event.target.value)}
+        onChange={(e)=>onChangeFilter(e.target.value)}
       />
     </label>
   );
 }
 
 export default Filter;
+
+Filter.propTypes = {
+  value: PropTypes.string,
+  onChangeFilter: PropTypes.func,
+};
