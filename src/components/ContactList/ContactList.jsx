@@ -15,7 +15,7 @@ function ContactsList({ contacts, onRemoveContact }) {
           index={index}
           number={item.number}
           onRemoveContact={onRemoveContact}
-        ></ContactsItem>
+        />
       })}
     </ul>
   );
